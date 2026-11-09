@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d1d">
+  <title>Violet Bank · Ethereum DApp</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./vendor/web3.min.js"></script>
+  <script defer src="./config.js"></script>
+  <script defer src="./bank.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header class="shell topbar">
+    <div class="brand"><span class="mark" aria-hidden="true">◈</span><span>Violet Bank<small>ETHEREUM DAPP</small></span></div>
+    <div class="connection-actions">
+      <button id="connect" class="connect" type="button">เชื่อม MetaMask</button>
+      <button id="connect-infura" class="refresh" type="button">ใส่ Private Key</button>
+    </div>
+  </header>
+  <main class="shell">
+    <div class="intro">
+      <div class="tag"><span></span> SEPOLIA TESTNET</div>
+      <h1>ธนาคารบน Ethereum</h1>
+      <p>ฝาก ถอน และตรวจสอบยอดผ่าน Infura บน Sepolia</p>
+      <div class="student">
+        <span>รหัสนักศึกษา <strong id="student-id">—</strong></span>
+        <span>ชื่อ–สกุล <strong id="student-name">—</strong></span>
+        <span>Section <strong id="student-section">—</strong></span>
+      </div>
+    </div>
+    <div class="dashboard">
+      <section class="balance" aria-labelledby="balance-label">
+        <div class="balance-top"><h2 id="balance-label">ยอดเงินฝากในสัญญา</h2><span class="eth-icon" aria-hidden="true">♦</span></div>
+        <div class="money"><output id="balance">—</output> <span>ETH</span></div>
+        <button id="refresh" class="refresh" disabled>↻ &nbsp; ตรวจสอบยอด</button>
+        <div class="wallet"><span>บัญชี Sepolia</span><strong id="wallet">ยังไม่ได้เชื่อมต่อ</strong></div>
+        <div class="wallet"><span>ยอดในกระเป๋า</span><strong><output id="wallet-balance">—</output> ETH</strong></div>
+      </section>
+      <section class="transfer" aria-labelledby="transfer-label">
+        <div class="eyebrow">TRANSACTIONS</div>
+        <h2 id="transfer-label">ฝากและถอน</h2>
+        <form id="transfer-form">
+          <label for="amount">จำนวนเงิน</label>
+          <div class="input-wrap"><input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0.00"><span>ETH</span></div>
+          <div class="actions">
+            <button id="deposit" type="button" class="deposit" disabled>↓ &nbsp; ฝากเงิน</button>
+            <button id="withdraw" type="button" class="withdraw" disabled>↑ &nbsp; ถอนเงิน</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <section class="feedback" aria-labelledby="status-label">
+      <span class="status-icon" aria-hidden="true">◎</span>
+      <div><h2 id="status-label">สถานะการทำรายการ</h2><p id="status" role="status">เชื่อม MetaMask เพื่อใช้บัญชี Sepolia เดิม</p><a id="tx-link" target="_blank" rel="noopener noreferrer" hidden>ดูธุรกรรมบน Sepolia Etherscan ↗</a></div>
+    </section>
+    <footer>
+      <a id="contract-link" target="_blank" rel="noopener noreferrer" hidden>Smart Contract ↗</a>
+    </footer>
+  </main>
+  <dialog id="setup" aria-labelledby="setup-title">
+    <h2 id="setup-title">เชื่อม Infura และกระเป๋า</h2>
+    <form id="import-form">
+      <p>ใช้ Sepolia ETH ที่มีอยู่ใน MetaMask โดยนำเข้าบัญชีทดสอบเดิม</p>
+      <label for="wallet-key">Private key ของบัญชีทดสอบเท่านั้น</label>
+      <div class="input-wrap"><input id="wallet-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required></div>
+      <button id="import-wallet" class="deposit" type="submit" value="import">ใช้บัญชีทดสอบจาก MetaMask</button>
+    </form>
+    <p id="setup-status" role="status"></p>
+    <form id="setup-form">
+      <p>สร้างกระเป๋าทดสอบใหม่ หรือเปิดบัญชีเดิมจากไฟล์เข้ารหัส</p>
+      <label for="wallet-password">รหัสผ่านไฟล์กระเป๋า</label>
+      <div class="input-wrap"><input id="wallet-password" type="password" autocomplete="off" required></div>
+      <label for="wallet-file">ไฟล์กระเป๋า JSON (สำหรับเปิดบัญชีเดิม)</label>
+      <input id="wallet-file" type="file" accept=".json,application/json">
+      <div class="actions">
+        <button id="create-wallet" class="deposit" type="submit" value="create">สร้างกระเป๋าทดสอบ</button>
+        <button id="open-wallet" class="connect" type="submit" value="open">เปิดกระเป๋าจากไฟล์</button>
+      </div>
+      <button id="close-setup" class="refresh" type="button">ปิด</button>
+    </form>
+  </dialog>
+</body>
+</html>
